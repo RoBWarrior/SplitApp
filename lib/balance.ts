@@ -2,24 +2,51 @@ export function calculateBalances(expenses: any[]) {
   const balances: Record<string, number> = {};
 
   expenses.forEach((exp) => {
-    if (!exp.amount) return; // skip invalid expenses
-
-    // ✅ Ensure splitBetween exists and is an array
-    const splitBetween = Array.isArray(exp.splitBetween) && exp.splitBetween.length > 0
-      ? exp.splitBetween
-      : [exp.paidBy]; // fallback: assume only payer
-
+    const splitBetween = exp.splitBetween || [];
     const splitCount = splitBetween.length;
+    if (splitCount === 0) return;
+
     const share = exp.amount / splitCount;
 
-    // ✅ Credit the payer
+    // Add total paid to payer
     balances[exp.paidBy] = (balances[exp.paidBy] || 0) + exp.amount;
 
-    // ✅ Debit each participant
+    // Subtract each member's share
     splitBetween.forEach((uid: string) => {
       balances[uid] = (balances[uid] || 0) - share;
     });
   });
 
   return balances;
+}
+
+export function simplifyTransactions(balances: Record<string, number>) {
+  const debtors = Object.entries(balances)
+    .filter(([_, bal]) => bal < 0)
+    .map(([uid, bal]) => ({ uid, amount: -bal }));
+
+  const creditors = Object.entries(balances)
+    .filter(([_, bal]) => bal > 0)
+    .map(([uid, bal]) => ({ uid, amount: bal }));
+
+  const transactions: { from: string; to: string; amount: number }[] = [];
+
+  debtors.forEach((debtor) => {
+    let amountToPay = debtor.amount;
+    for (const creditor of creditors) {
+      if (amountToPay === 0) break;
+      const payAmount = Math.min(amountToPay, creditor.amount);
+      if (payAmount > 0) {
+        transactions.push({
+          from: debtor.uid,
+          to: creditor.uid,
+          amount: payAmount,
+        });
+        amountToPay -= payAmount;
+        creditor.amount -= payAmount;
+      }
+    }
+  });
+
+  return transactions;
 }
