@@ -45,8 +45,8 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-zinc-950/5 backdrop-blur-xl shadow-lg shadow-orange-500/5 border-b border-zinc-800/50"
-            : "bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/30"
+            ? "bg-slate-900/95 backdrop-blur-xl shadow-lg shadow-teal-500/5 border-b border-teal-500/20"
+            : "bg-slate-900/90 backdrop-blur-md border-b border-slate-700/50"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,13 +57,13 @@ export default function Navbar() {
               className="group flex items-center gap-3 relative"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
-                <div className="relative p-2 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl shadow-lg">
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
+                <div className="relative p-2 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl shadow-lg">
                   <Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
               </div>
               <div className="hidden sm:block">
-                <span className="text-xl sm:text-2xl font-bold text-transparent bg-gradient-to-r from-orange-400 via-orange-500 to-amber-500 bg-clip-text">
+                <span className="text-xl sm:text-2xl font-bold text-transparent bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text">
                   SplitWise
                 </span>
               </div>
@@ -80,22 +80,22 @@ export default function Navbar() {
                     href={link.href}
                     className={`group relative flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 ${
                       isActive
-                        ? "text-orange-400"
-                        : "text-zinc-400 hover:text-orange-400"
+                        ? "text-teal-400"
+                        : "text-slate-300 hover:text-teal-400"
                     }`}
                   >
                     {/* Hover Background */}
                     <div
                       className={`absolute inset-0 rounded-xl transition-all duration-300 ${
                         isActive
-                          ? "bg-orange-500/10 border border-orange-500/20"
-                          : "bg-transparent group-hover:bg-zinc-800/50 border border-transparent group-hover:border-zinc-700/50"
+                          ? "bg-teal-500/10 border border-teal-500/30"
+                          : "bg-transparent group-hover:bg-slate-800/50 border border-transparent group-hover:border-slate-600/50"
                       }`}
                     ></div>
 
                     {/* Active Indicator */}
                     {isActive && (
-                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-gradient-to-r from-transparent via-teal-400 to-transparent"></div>
                     )}
 
                     <Icon className="w-4 h-4 relative z-10" />
@@ -118,7 +118,7 @@ export default function Navbar() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden relative p-2 rounded-xl text-zinc-400 hover:text-orange-400 hover:bg-zinc-800/50 transition-all duration-300"
+              className="md:hidden relative p-2 rounded-xl text-slate-300 hover:text-teal-400 hover:bg-slate-800/50 transition-all duration-300"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
@@ -133,7 +133,7 @@ export default function Navbar() {
             menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="bg-zinc-900/95 backdrop-blur-xl border-t border-zinc-800/50">
+          <div className="bg-slate-800/95 backdrop-blur-xl border-t border-teal-500/20">
             <div className="px-4 py-4 space-y-2">
               {navLinks.map((link, index) => {
                 const Icon = link.icon;
@@ -145,23 +145,23 @@ export default function Navbar() {
                     onClick={() => setMenuOpen(false)}
                     className={`group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                       isActive
-                        ? "bg-orange-500/10 border border-orange-500/20 text-orange-400"
-                        : "text-zinc-400 hover:text-orange-400 hover:bg-zinc-800/50 border border-transparent"
+                        ? "bg-teal-500/10 border border-teal-500/30 text-teal-400"
+                        : "text-slate-300 hover:text-teal-400 hover:bg-slate-700/50 border border-transparent"
                     }`}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div
                       className={`p-2 rounded-lg transition-all ${
                         isActive
-                          ? "bg-orange-500/20"
-                          : "bg-zinc-800/50 group-hover:bg-orange-500/10"
+                          ? "bg-teal-500/20"
+                          : "bg-slate-700/50 group-hover:bg-teal-500/10"
                       }`}
                     >
                       <Icon className="w-5 h-5" />
                     </div>
                     <span className="font-medium">{link.name}</span>
                     {isActive && (
-                      <div className="ml-auto w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="ml-auto w-2 h-2 rounded-full bg-teal-400"></div>
                     )}
                   </Link>
                 );
@@ -172,7 +172,7 @@ export default function Navbar() {
                   onClick={handleLogout}
                   className="w-full group flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-950/30 border border-transparent hover:border-red-500/20 transition-all duration-300 mt-4"
                 >
-                  <div className="p-2 rounded-lg bg-zinc-800/50 group-hover:bg-red-950/50 transition-all">
+                  <div className="p-2 rounded-lg bg-slate-700/50 group-hover:bg-red-950/50 transition-all">
                     <LogOut className="w-5 h-5" />
                   </div>
                   <span className="font-medium">Logout</span>
